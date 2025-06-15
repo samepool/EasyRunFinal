@@ -61,17 +61,40 @@ Testing
     -Frontend Testing: Employs Jest as the test Runner and React Test Library. This is       meant to simulate user interaction
     -Manual/Exploratory Test: Directly testing by interacting with the app UX/UI.
 
+  ---
+  Setup & Installation
+  ---
+  1. Clone Repository and install
+     git clone EasyRunFinal
+     cd EasyRunFinal
+     
+  2. Backend Setup:
+     Bash
+     cd backend
+     npm install
+       #Create .env file for your database string
+     npm run migrate # or sequelize db:migrate
+     npm run seed # creates initial 'throw away' manager profile
+     npm run dev # starts backend server
+
+3. Frontend Setup
+   Bash
+
+   cd ../frontend
+   npm install
+   #create a .env file in the frontend directory with your backend API URL
+   npm run dev
+
+  4. Access the Application: Access the address provided by the frontend development server. (usually http://localhost:5173)
+
 Future Project Development and Cut out Features
+-> Comprehensive Edit/Delete Capabilities: Full implementation allowing managers to edit or delete all created entities, including Trip Requests, Schedules, and Trips. While foundational support exists, these specific UI and backedn update/delete paths for manages were not prioritized for the MVP.
 
-(The first is the ability for the manager to edit or delete the Trip-Request, Schedules, and Trips created. These weren't added due to complexity and time constraints but are fully intended to be within the project)
+->Twilio Integration: Backend Twilio functionality was added but not exposed or utilized on the front end. This was intended that the manager could send SMS updates to the transportation worker regarding changess, cancellations and other pertinent information regarding a trip. This was deferred due to the complexities of stable and testable frontend implementation within time constraints
 
-(On the Back end Twilio functionality was added but not implemented on the front end. This was due to a lack of ability to apply the function in a testable, stable way as well as time constraints. This will be added in future iterations. It is intended that the manager will be able to message updates to the transportation worker regarding updates, cancellations and other pertinent information regarding a trip).
+-> Map & ETA Functionality:Integration of a map service to help develop projected times of Arrival(ETAs) for Transportation Workers aiding in trip planning and real-time updates.
 
-(The use of a map function to help develop a projected ETA for Transportation Workers to reach a Destination and return).
-
-(A pool function where the Employee is able to be assigned to runs and mark their available or unavailable status dynamically did not make it in there due to time constraints).
-
-
+-> Employee Pool & Availability: A dynamic feature allowing employees to be assigned to "runs" and to mark their availability or lackthereof, providing a more flexible and responsive scheduling system.
 
 
 
