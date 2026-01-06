@@ -14,7 +14,7 @@ export default function EditSchedule() {
     const navigate = useNavigate();
 
     useEffect(() => {
-        fetch(`http://localhost:3000/api/schedules/${id}`)
+        fetch(`http://localhost:3001/api/schedules/${id}`)
             .then(res => res.json())
             .then(data => {
                 setFormData({
@@ -24,7 +24,7 @@ export default function EditSchedule() {
                 });
             });
         
-        fetch('http://localhost:3000/api/employees')
+        fetch('http://localhost:3001/api/employees')
             .then(res => res.json())
             .then(setEmployees);
     }, [id]);
@@ -32,7 +32,7 @@ export default function EditSchedule() {
     const handleSubmit = async (e) => {
         e.preventDefault();
 
-        await fetch(`http://localhost:3000/api/schedules/${id}`, {
+        await fetch(`http://localhost:3001/api/schedules/${id}`, {
             method: 'PUT',
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify(formData),

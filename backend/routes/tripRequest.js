@@ -64,7 +64,7 @@ router.post('/', async (req, res) => {
 
 //Update a trip request
 router.put('/:id', async (req, res) => {
-    const { destination, requestTime, status, staffId } = req.body;
+    const { destination, requestTime, status, employeeId } = req.body;
 
     try {
         const request = await TripRequest.findByPk(req.params.id);
@@ -72,17 +72,20 @@ router.put('/:id', async (req, res) => {
             return res.status(404).json({ error: 'Trip request not found'});
         }
 
-        if (staffId) {
-            const employee = await Employee.findByPk(staffId);
+        if (employeeId) {
+            const employee = await Employee.findByPk(employeeId);
             if (!employee) {
-                return res.status(400).json({ error: 'Invalid staffId - employee not found'});
+                return res.status(400).json({ error: 'Invalid employeeId - employee not found'});
             }
         }
 
         request.destination = destination || request.destination;
         request.requestTime = requestTime || request.requestTime;
         request.status = status || request.status;
-        request.staffId = staffId || request.staffId;
+
+        if (employeeId) {
+            request.employeeId = employeeId;
+        }
 
         await request.save();
 
