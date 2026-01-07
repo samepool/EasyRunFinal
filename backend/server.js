@@ -1,3 +1,4 @@
+require('dotenv').config();
 const express = require('express');
 const cors = require('cors');
 
@@ -43,7 +44,7 @@ const syncDatabase = async () => {
     try {
         await sequelize.authenticate();
         console.log('Connected to PostgreSQL database');
-        await sequelize.sync({ alter: true });
+        await sequelize.sync({ force: true });
         console.log('Database Synced');
     } catch (error) {
         console.error('[SERVER.JS] Error syncing database', error);
