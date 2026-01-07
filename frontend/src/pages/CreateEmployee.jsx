@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
+import API from '../services/api';
 
 //component creates new employee accounts managing input, form submission and display feedback
 export default function CreateEmployee() {
@@ -23,21 +24,29 @@ export default function CreateEmployee() {
         setError('');
 
         try {
-            const res = await fetch('http://localhost:3001/api/employees', {
-                method: 'POST',
-                headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify(formData),
-            });
-
-            const data = await res.json();
-
-            if (!res.ok) throw new Error(data.error || 'Employee creation failed');
+            const res = await API.post('/employees', formData);
 
             alert('Employee created!');
             navigate('/');
         } catch (err) {
-            setError(err.message);
+            setError(err.response?.data?.error || 'Employee creation failed');
         }
+        // try {
+        //     const res = await fetch('http://localhost:3001/api/employees', {
+        //         method: 'POST',
+        //         headers: { 'Content-Type': 'application/json' },
+        //         body: JSON.stringify(formData),
+        //     });
+
+        //     const data = await res.json();
+
+        //     if (!res.ok) throw new Error(data.error || 'Employee creation failed');
+
+        //     alert('Employee created!');
+        //     navigate('/');
+        // } catch (err) {
+        //     setError(err.message);
+        
     };//Sends POST Request for employee creation
 
     return (

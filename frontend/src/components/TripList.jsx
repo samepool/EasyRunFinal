@@ -1,15 +1,29 @@
 import React, { useEffect, useState } from 'react';
+import API from '../services/api';
 
-//A List showing available trips.
+// //A List showing available trips.
 export default function TripList() {
     const [trips, setTrips] = useState([]);
+    const [loading, setLoading] = useState(true);
 
     useEffect(() => {
-        fetch('http://localhost:3001/api/trips')
-            .then(res => res.json())
-            .then(data => setTrips(data))
-            .catch(err => console.error('Error fetching trips:', err));
-    }, []);
+        API.get('/trips')
+            .then(res => {
+                setTrips(res.data);
+                setLoading(false);
+            })
+            .catch(err => {
+                console.error('Error fetching trips:', err);
+                setLoading(false);
+            });
+    }, [])
+
+// //     useEffect(() => {
+// //         fetch('http://localhost:3001/api/trips')
+// //             .then(res => res.json())
+// //             .then(data => setTrips(data))
+// //             .catch(err => console.error('Error fetching trips:', err));
+//     }, []);
 
     return (
         <div style={{ padding: '2rem' }}>
